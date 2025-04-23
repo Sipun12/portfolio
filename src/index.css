@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&display=swap');
+
+:root {
+  background-color: #18181b;
+  color: azure;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+
+/* Web text animation keyframes */
+@keyframes webAnimation {
+  /* From 0s to 2s: Stay visible at baseline */
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  33.33% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* From 2s to 3s: Transition upward and fade out */
+  50% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  /* Remain hidden until the cycle resets */
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+/* Java text animation keyframes */
+@keyframes javaAnimation {
+  /* Before its turn: hidden below */
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  /* From 3s (i.e. 0% of its own timeline after delay) to ~4s: transition in */
+  16.67% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Remain visible from about 4s to 6s (i.e. from 16.67% to 50% of a 6s cycle) */
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Then transition upward and fade out */
+  66.67% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  /* Remain hidden until the cycle resets */
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+/* Both spans share these styles—they fill their container and are positioned absolutely */
+.web-text,
+.java-text {
+  position: absolute;
+  width: 100%;
+}
+
+/* Web text runs its 6s cycle immediately */
+.web-text {
+  animation: webAnimation 6s infinite;
+}
+
+/* Java text delays its start by 3 seconds so it activates when Web has finished */
+.java-text {
+  animation: javaAnimation 6s infinite;
+  animation-delay: 3s;
+}
+
+ 
+.animated-gradient-text {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  max-width: fit-content;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  /* 20px */
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.5s ease-out;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 300% 100%;
+  animation: gradient linear infinite;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gradient-overlay::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: inherit;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #060606;
+  z-index: -1;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient linear infinite;
+}
+
+
+@keyframes fade-in-down {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-down {
+  animation: fade-in-down 0.3s ease-out;
+}
